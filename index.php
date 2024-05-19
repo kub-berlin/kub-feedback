@@ -81,6 +81,11 @@ function translate($string)
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$post = true;
+
+	// spam protection
+	if ($_POST['honey'] != '') {
+		die();
+	}
 	/* TODO store_data($_POST); */
 }
 
@@ -106,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				<?php e(translate('Wer hat dich beraten?')) ?>
 				<input type="text" name="subject">
 			</label>
+			<input type="text" name="honey">
 			<?php foreach ($questions as $name => $question) : ?>
 				<fieldset>
 					<legend><?php e($question) ?></legend>
