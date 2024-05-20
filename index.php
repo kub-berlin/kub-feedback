@@ -86,7 +86,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if ($_POST['honey'] != '') {
 		die();
 	}
-	/* TODO store_data($_POST); */
+
+	$month = date('Y-m');
+	$path = "feedback_${id}_${month}.csv";
+	$row = implode(',', array_map(function($name) {
+		return '"'.$_POST[$name].'"';
+	}, array_keys($questions)));
+	file_put_contents($path, "$row\n", FILE_APPEND | LOCK_EX);
 }
 
 ?><!DOCTYPE html>
@@ -115,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<?php foreach ($questions as $name => $question) : ?>
 				<fieldset>
 					<legend><?php e($question) ?></legend>
-					<label><input type="radio" name="<?php e($name) ?>" value="0" checked> <?php e(translate('Keine Angabe')) ?></label>
+					<label><input type="radio" name="<?php e($name) ?>" value="" checked> <?php e(translate('Keine Angabe')) ?></label>
 					<label><input type="radio" name="<?php e($name) ?>" value="1"> <?php e(translate('Stimme nicht zu')) ?></label>
 					<label><input type="radio" name="<?php e($name) ?>" value="2"> <?php e(translate('Weder noch')) ?></label>
 					<label><input type="radio" name="<?php e($name) ?>" value="3"> <?php e(translate('Stimme zu')) ?></label>
