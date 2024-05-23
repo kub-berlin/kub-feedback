@@ -1,11 +1,6 @@
 <?php declare(strict_types=1);
 
-$token = 'CHANGME';
-$config = [
-	'test' => [
-		'email' => 'test@example.com',
-	],
-];
+include_once('config.php');
 
 function send_mail_with_attachment($to, $subject, $message, $attachment) {
 	// https://stackoverflow.com/questions/12301358
@@ -40,14 +35,14 @@ if ($_POST['token'] !== $token) {
 $month = date('Y-m', strtotime('-1 month'));
 $prev_month = date('Y-m', strtotime('-2 months'));
 
-foreach ($config as $id => $fg) {
+foreach ($emails as $id => $to) {
 	$path = "feedback_${id}_${month}.csv";
 	$subject = "Feedback $id $month";
 	if (file_exists($path)) {
-		send_mail_with_attachment($fg['email'], $subject, "Im Anhang findet ihr das Feedback für diesen Monat.", $path);
+		send_mail_with_attachment($to, $subject, "Im Anhang findet ihr das Feedback für diesen Monat.", $path);
 		echo "sent $path";
 	} else {
-		mail($fg['email'], $subject, "Diesen Monat gab es kein Feedback");
+		mail($to, $subject, "Diesen Monat gab es kein Feedback");
 	}
 
 	$prev_path = "feedback_${id}_${prev_month}.csv";
