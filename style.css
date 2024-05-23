@@ -67,4 +67,7 @@ button {
 	:root {
 		color-scheme: dark;
 	}
+	img {
+		filter: invert();
+	}
 }
