@@ -10,6 +10,15 @@
 <body>
     <header>
         <img src="/static/logo.svg" alt="Logo: KuB - Kontakt- und Beratungsstelle für Flüchtlinge und Migrant_innen e.V.">
+        <nav aria-label="<?php e(translate('Sprachen')) ?>">
+            <a href="?id=<?php e($id) ?>&lang=de" lang="de" hreflang="de" dir="ltr">Deutsch</a>
+            <a href="?id=<?php e($id) ?>&lang=en" lang="en" hreflang="en" dir="ltr">English</a>
+            <a href="?id=<?php e($id) ?>&lang=fr" lang="fr" hreflang="fr" dir="ltr">Français</a>
+            <a href="?id=<?php e($id) ?>&lang=es" lang="es" hreflang="es" dir="ltr">Español</a>
+            <a href="?id=<?php e($id) ?>&lang=ar" lang="ar" hreflang="ar" dir="rtl">العربية</a>
+            <a href="?id=<?php e($id) ?>&lang=fa" lang="fa" hreflang="fa" dir="rtl">فارسی</a>
+            <a href="?id=<?php e($id) ?>&lang=ru" lang="ru" hreflang="ru" dir="ltr">Русский</a>
+        </nav>
     </header>
     <?php if ($post) : ?>
         <p><?php e(translate('Deine Antworten wurden gespeichert. Vielen Dank!')) ?></p>

@@ -18,8 +18,19 @@ header {
 	margin-block: 2em 3em;
 }
 
+p {
+	margin-block-end: 2em;
+}
+
 img {
 	inline-size: 100%;
+}
+
+nav {
+	display: flex;
+	column-gap: 1.5em;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 footer {
