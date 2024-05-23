@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+include_once('translation.php');
+
 $QUESTIONS = [
 	'DK' => [
 		translate('Waren die Informationen, die du in der Sprechstunde/bei der Anmeldung bekommen hast, klar und verständlich?'),
@@ -20,51 +22,6 @@ function e($string)
 	echo htmlspecialchars(strval($string), ENT_QUOTES, 'UTF-8');
 }
 
-function parse_accept_language($accept_language)
-{
-	$result = array();
-	$parts = array_map('trim', explode(',', $accept_language));
-	foreach (array_reverse($parts) as $part) {
-		if (str_contains($part, ';q=')) {
-			[$lang, $q] = explode(';q=', $part, 2);
-			$result[$lang] = floatval($q);
-		} else {
-			$result[$part] = 1;
-		}
-	}
-	return $result;
-}
-
-function match_language($accept, $candidates, $fallback)
-{
-	$best = $fallback;
-	$best_q = 0;
-	foreach ($candidates as $lang) {
-		foreach ($accept as $l => $q) {
-			if (str_starts_with($lang, $l) && $q > $best_q) {
-				$best = $lang;
-				$best_q = $q;
-			}
-		}
-	}
-	return $best;
-}
-
-function get_preferred_language()
-{
-	$langs = ['de', 'en', 'fr', 'es', 'ar', 'fa', 'ru'];
-	$accept = parse_accept_language($_SERVER["HTTP_ACCEPT_LANGUAGE"]);
-	return match_language($accept, $langs, $langs[0]);
-}
-
-function get_lang($code)
-{
-	$lang = parse_ini_file(__DIR__."/langs/$code.ini") ?? [];
-	$lang['code'] = $code;
-	return $lang;
-}
-
-$lang = get_lang(get_preferred_language());
 $id = $_GET['id'];
 $questions = $QUESTIONS[$id];
 
@@ -72,11 +29,6 @@ if (!$questions) {
 	http_response_code(404);
 	echo '404 Not Found';
 	die();
-}
-
-function translate($string)
-{
-	return $lang[$string] ?? $string;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -96,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?><!DOCTYPE html>
-<html lang="<?php e($lang['code']) ?>">
+<html lang="<?php e($translation['code']) ?>" dir="<?php e($translation['dir']) ?>">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
