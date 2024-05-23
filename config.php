@@ -2,7 +2,7 @@
 
 include_once('common.php');
 
-$token = 'CHANGME';
+$token = 'CHANGEME';
 
 $emails = [
     'DK' => 'test@example.com',
