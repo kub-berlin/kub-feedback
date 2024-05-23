@@ -71,3 +71,8 @@ function translate($string)
     global $translation;
     return $translation[$string] ?? $string;
 }
+
+function e($string)
+{
+    echo htmlspecialchars(strval($string), ENT_QUOTES, 'UTF-8');
+}

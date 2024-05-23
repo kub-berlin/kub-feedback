@@ -1,12 +1,7 @@
 <?php declare(strict_types=1);
 
 include_once('config.php');
-include_once('translation.php');
-
-function e($string)
-{
-    echo htmlspecialchars(strval($string), ENT_QUOTES, 'UTF-8');
-}
+include_once('common.php');
 
 $id = $_GET['id'];
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-include_once('translation.php');
+include_once('common.php');
 
 $token = 'CHANGME';
 
