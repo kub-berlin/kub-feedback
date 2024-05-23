@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <img src="/static/logo.svg" alt="KuB">
+        <img src="/static/logo.svg" alt="Logo: KuB - Kontakt- und Beratungsstelle für Flüchtlinge und Migrant_innen e.V.">
     </header>
     <?php if ($post) : ?>
         <p><?php e(translate('Deine Antworten wurden gespeichert. Vielen Dank!')) ?></p>
