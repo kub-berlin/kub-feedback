@@ -65,10 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<?php else : ?>
 		<p><?php e(translate('Vielen Dank, dass du uns Feedback gibst! Das Feedback hilft uns dabei, unsere Angebote zu verbessern. Du musst uns nicht sagen, wer du bist.')) ?></p>
 		<form method="post">
-			<label>
-				<?php e(translate('Wer hat dich beraten?')) ?>
-				<input type="text" name="subject">
-			</label>
 			<input type="text" name="honey">
 			<?php foreach ($questions as $name => $question) : ?>
 				<fieldset>
