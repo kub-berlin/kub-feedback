@@ -2,9 +2,9 @@
 
 include_once('config.php');
 
-function send_mail_with_attachment($to, $subject, $message, $attachment) {
-    // https://stackoverflow.com/questions/12301358
-
+// https://stackoverflow.com/questions/12301358
+function send_mail_with_attachment($to, $subject, $message, $attachment)
+{
     $boundary = md5('whatever');
 
     $additional_headers = [
