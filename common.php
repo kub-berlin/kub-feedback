@@ -52,7 +52,7 @@ function readcsv($file)
         return $rows;
     };
     while (($row = fgetcsv($fh)) !== false) {
-        $rows[$row[0]] = $row[1];
+        $rows[] = $row;
     }
     fclose($fh);
     return $rows;
@@ -60,7 +60,10 @@ function readcsv($file)
 
 function get_translation($code)
 {
-    $translation = readcsv("translations/$code.csv");
+    $translation = [];
+    foreach (readcsv("translations/$code.csv") as $row) {
+        $translation[$row[0]] = $row[1];
+    }
     $translation['code'] = $code;
     $translation['dir'] = in_array($code, ['ar', 'fa']) ? 'rtl' : 'ltr';
     return $translation;

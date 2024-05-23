@@ -1,35 +1,62 @@
 <?php declare(strict_types=1);
 
 include_once('config.php');
-
-// https://stackoverflow.com/questions/12301358
-function send_mail_with_attachment($to, $subject, $message, $attachment)
-{
-    $boundary = md5('whatever');
-
-    $additional_headers = [
-        'MIME-Version' => '1.0',
-        'Content-Type' => "multipart/mixed; boundary=$boundary",
-    ];
-
-    $body .= "--$boundary\r\n";
-    $body .= "Content-Type: text/plain; charset=UTF-8\r\n";
-    $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-    $body .= "$message\r\n\r\n";
-
-    $body .= "--$boundary\r\n";
-    $body .= "Content-Type: text/csv; charset=UTF-8\r\n";
-    $body .= "Content-Transfer-Encoding: 7bit\r\n";
-    $body .= "Content-Disposition: attachment; filename=\"$attachment\"\r\n\r\n";
-    $body .= file_get_contents($attachment) . "\r\n\r\n";
-    $body .= "--$boundary--";
-
-    return mail($to, $subject, $body, $additional_headers);
-}
+include_once('common.php');
 
 if ($_POST['token'] !== $token) {
     http_response_code(400);
     exit(0);
+}
+
+function group_answers($answers, $questions)
+{
+    $groups = [];
+    foreach ($questions as $i => $q) {
+        $groups[$q] = [];
+        foreach ($answers as $row) {
+            if ($row[$i] !== "") {
+                $groups[$q][] = intval($row[$i]);
+            }
+        }
+    }
+    return $groups;
+}
+
+function average($values)
+{
+    return array_sum($values) / count($values);
+}
+
+function aggregate($values)
+{
+    $avg = average($values);
+    $dists = [];
+    foreach ($values as $v) {
+        $dists[] = pow($v - $avg, 2);
+    }
+    $stdev = sqrt(average($dists));
+
+    $s_avg = number_format($avg, 2);
+    $s_stdev = number_format($stdev, 2);
+
+    return "$s_avg ± $s_stdev";
+}
+
+function get_body($answers, $questions)
+{
+    $grouped = group_answers($answers, $questions);
+    $body = "Das Feedback für diesen Monat:\n\n";
+    foreach ($grouped as $question => $a) {
+        $n = count($a);
+        if ($n === 0) {
+            $body .= "$question (keine Antworten)\n";
+        } else {
+            $stat = aggregate($a);
+            $body .= "$question $stat ($n Antworten)\n";
+        }
+    }
+    $body .= "(-1 = Nein, 1 = Ja)\n";
+    return $body;
 }
 
 $month = date('Y-m', strtotime('-1 month'));
@@ -39,15 +66,16 @@ foreach ($emails as $id => $to) {
     $path = "data/feedback_${id}_${month}.csv";
     $subject = "Feedback $id $month";
     if (file_exists($path)) {
-        send_mail_with_attachment($to, $subject, "Im Anhang findet ihr das Feedback für diesen Monat.", $path);
-        echo "sent $path";
+        $body = get_body(readcsv($path), $questions[$id]);
     } else {
-        mail($to, $subject, "Diesen Monat gab es kein Feedback");
+        $body = "Diesen Monat gab es kein Feedback";
     }
+    mail($to, $subject, $body);
+    echo "processed $path\n";
 
     $prev_path = "data/feedback_${id}_${prev_month}.csv";
     if (file_exists($prev_path)) {
         unlink($prev_path);
-        echo "deleted $prev_path";
+        echo "deleted $prev_path\n";
     }
 }
