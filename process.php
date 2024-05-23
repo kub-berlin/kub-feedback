@@ -49,13 +49,14 @@ function get_body($answers, $questions)
     foreach ($grouped as $question => $a) {
         $n = count($a);
         if ($n === 0) {
-            $body .= "$question (keine Antworten)\n";
+            $body .= "$question (keine Antworten)\n\n";
         } else {
             $stat = aggregate($a);
-            $body .= "$question $stat ($n Antworten)\n";
+            $body .= "$question $stat ($n Antworten)\n\n";
         }
     }
-    $body .= "(-1 = Nein, 1 = Ja)\n";
+    $body .= "1 = Ja, -1 = Nein\n";
+    $body .= "Durchschnitt ± Standardabweichung\n";
     return $body;
 }
 
