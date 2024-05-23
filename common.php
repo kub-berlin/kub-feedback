@@ -36,9 +36,11 @@ function get_language()
 
     if (isset($_GET['lang']) && in_array($_GET['lang'], $langs)) {
         return $_GET['lang'];
-    } else {
+    } elseif (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
         $accept = parse_accept_language($_SERVER["HTTP_ACCEPT_LANGUAGE"]);
         return match_language($accept, $langs, $langs[0]);
+    } else {
+        return $langs[0];
     }
 }
 
