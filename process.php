@@ -36,7 +36,7 @@ $month = date('Y-m', strtotime('-1 month'));
 $prev_month = date('Y-m', strtotime('-2 months'));
 
 foreach ($emails as $id => $to) {
-    $path = "feedback_${id}_${month}.csv";
+    $path = "data/feedback_${id}_${month}.csv";
     $subject = "Feedback $id $month";
     if (file_exists($path)) {
         send_mail_with_attachment($to, $subject, "Im Anhang findet ihr das Feedback für diesen Monat.", $path);
@@ -45,7 +45,7 @@ foreach ($emails as $id => $to) {
         mail($to, $subject, "Diesen Monat gab es kein Feedback");
     }
 
-    $prev_path = "feedback_${id}_${prev_month}.csv";
+    $prev_path = "data/feedback_${id}_${prev_month}.csv";
     if (file_exists($prev_path)) {
         unlink($prev_path);
         echo "deleted $prev_path";
