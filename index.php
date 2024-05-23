@@ -2,10 +2,10 @@
 
 $QUESTIONS = [
 	'DK' => [
-		translate('Die Informationen, die ich in der Sprechstunde/bei der Anmeldung bekommen habe, waren klar und verständlich.'),
-		translate('In dem Gespräch während der Sprechstunde wurde ich nicht aufgrund meiner Hautfarbe, meiner Religion, meines Geschlechts oder meiner Herkunft diskriminiert.'),
-		translate('Der Kurs, den ich besuche/besucht habe, hat mir beim Deutschlernen weitergeholfen.'),
-		translate('In dem Kurs, den ich besuche/besucht habe, wurde ich nicht aufgrund meiner Hautfarbe, meiner Religion, meines Geschlechts oder meiner Herkunft diskriminiert.'),
+		translate('Waren die Informationen, die du in der Sprechstunde/bei der Anmeldung bekommen hast, klar und verständlich?'),
+		translate('Wurdest du in dem Gespräch während der Sprechstunde aufgrund deiner Hautfarbe, deiner Religion, deines Geschlechts oder deiner Herkunft diskriminiert?'),
+		translate('Hat der Kurs, den du besuchst/besucht hast, dir beim Deutschlernen weitergeholfen?'),
+		translate('Wurdest du in dem Kurs, den du besuchst/besucht hast, aufgrund deiner Hautfarbe, deiner Religion, deines Geschlechts oder deiner Herkunft diskriminiert?'),
 	],
 	'RB' => [
 		translate('Konntest du alle deine Fragen stellen?'),
@@ -121,10 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<?php foreach ($questions as $name => $question) : ?>
 				<fieldset>
 					<legend><?php e($question) ?></legend>
-					<label><input type="radio" name="<?php e($name) ?>" value="" checked> <?php e(translate('Keine Angabe')) ?></label>
-					<label><input type="radio" name="<?php e($name) ?>" value="1"> <?php e(translate('Stimme nicht zu')) ?></label>
-					<label><input type="radio" name="<?php e($name) ?>" value="2"> <?php e(translate('Weder noch')) ?></label>
-					<label><input type="radio" name="<?php e($name) ?>" value="3"> <?php e(translate('Stimme zu')) ?></label>
+					<label><input type="radio" name="<?php e($name) ?>" value="1"> <?php e(translate('Ja')) ?></label>
+					<label><input type="radio" name="<?php e($name) ?>" value="0"> <?php e(translate('Neutral')) ?></label>
+					<label><input type="radio" name="<?php e($name) ?>" value="-1"> <?php e(translate('Nein')) ?></label>
 				</fieldset>
 			<?php endforeach ?>
 			<button><?php e(translate('Abschicken')) ?></button>
