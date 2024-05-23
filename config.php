@@ -1,11 +1,13 @@
 <?php declare(strict_types=1);
 
+include_once('translation.php');
+
 $token = 'CHANGME';
 
 $emails = [
     'DK' => 'test@example.com',
     'RB' => 'test@example.com',
-]
+];
 
 $questions = [
     'DK' => [

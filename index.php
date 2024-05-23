@@ -9,9 +9,8 @@ function e($string)
 }
 
 $id = $_GET['id'];
-$questions = $QUESTIONS[$id];
 
-if (!$questions) {
+if (!isset($questions[$id])) {
     http_response_code(404);
     echo '404 Not Found';
     die();
@@ -29,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $path = "data/feedback_${id}_${month}.csv";
     $row = implode(',', array_map(function ($name) {
         return '"'.$_POST[$name].'"';
-    }, array_keys($questions)));
+    }, array_keys($questions[$id])));
     file_put_contents($path, "$row\n", FILE_APPEND | LOCK_EX);
 }
 

@@ -17,7 +17,7 @@
         <p><?php e(translate('Vielen Dank, dass du uns Feedback gibst! Das Feedback hilft uns dabei, unsere Angebote zu verbessern. Du musst uns nicht sagen, wer du bist.')) ?></p>
         <form method="post">
             <input type="text" name="honey">
-            <?php foreach ($questions as $name => $question) : ?>
+            <?php foreach ($questions[$id] as $name => $question) : ?>
                 <fieldset>
                     <legend><?php e($question) ?></legend>
                     <label><input type="radio" name="<?php e($name) ?>" value="1"> <?php e(translate('Ja')) ?></label>
