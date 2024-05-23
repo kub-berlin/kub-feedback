@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+    <meta name="generator" content="https://github.com/kub-berlin/kub-feedback">
     <title><?php e(translate('KuB Feedback')) ?></title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
