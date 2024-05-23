@@ -1,0 +1,3 @@
+<Files ~ "(^\.ht|\.csv$)">
+	Deny from all
+</Files>
