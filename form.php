@@ -30,9 +30,11 @@
             <?php foreach ($questions[$id] as $name => $question) : ?>
                 <fieldset>
                     <legend><?php e($question) ?></legend>
-                    <label><input type="radio" name="<?php e($name) ?>" value="1"> <?php e(translate('Ja')) ?></label>
+                    <label><input type="radio" name="<?php e($name) ?>" value="2"> <?php e(translate('Stimme voll und ganz zu')) ?></label>
+                    <label><input type="radio" name="<?php e($name) ?>" value="1"> <?php e(translate('Stimme zu')) ?></label>
                     <label><input type="radio" name="<?php e($name) ?>" value="0"> <?php e(translate('Neutral')) ?></label>
-                    <label><input type="radio" name="<?php e($name) ?>" value="-1"> <?php e(translate('Nein')) ?></label>
+                    <label><input type="radio" name="<?php e($name) ?>" value="-1"> <?php e(translate('Stimme nicht zu')) ?></label>
+                    <label><input type="radio" name="<?php e($name) ?>" value="-2"> <?php e(translate('Stimme überhaupt nicht zu')) ?></label>
                 </fieldset>
             <?php endforeach ?>
             <button><?php e(translate('Abschicken')) ?></button>
