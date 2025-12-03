@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $month = date('Y-m');
-    $path = "data/feedback_${id}_${month}.csv";
+    $path = "data/feedback_{$id}_{$month}.csv";
     $row = implode(',', array_map(function ($name) {
         return '"'.$_POST[$name].'"';
     }, array_keys($questions[$id])));
